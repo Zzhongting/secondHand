@@ -1,5 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<<<<<<< HEAD
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+=======
+>>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -23,7 +26,11 @@
 	.manage-left{
 		width:20%;
 		float:left;
+<<<<<<< HEAD
 		padding:25px 20px 0 20px;
+=======
+		padding:25px 0 0 60px;
+>>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
 	}
 </style>
 <body>
@@ -50,6 +57,7 @@
 		</div>
 	</div>
 </div>
+<<<<<<< HEAD
 
 	<div class="manage-left">
 		<ul class="nav nav-pills nav-stacked">
@@ -77,6 +85,31 @@
 			</c:if>
 		</ul>
 
+=======
+	<div class="manage-left">
+		<li>
+			<a href="/admin/userList" >
+					<em>会员管理</em>
+			</a>
+		</li>
+		<li>
+			<a href="/admin/goodsList" >
+				<em>商品管理</em>
+			</a>
+		</li>
+		<li>
+			<a href="/admin/catelogList" >
+				<em>目录管理</em>
+			</a>
+		</li>
+		<c:if test="${cur_user.status == 1}">
+			<li>
+				<a href="/admin/adminList" >
+					<em>管理员管理</em>
+				</a>
+		</li>
+		</c:if>
+>>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
 	</div>
 
 

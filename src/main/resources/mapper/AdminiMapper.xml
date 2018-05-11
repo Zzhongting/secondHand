@@ -5,7 +5,11 @@
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+<<<<<<< HEAD
     <result column="status" jdbcType="INTEGER" property="status" />
+=======
+    <result column="status" jdbcType="TINYINT" property="status" />
+>>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
   </resultMap>
   <sql id="Base_Column_List">
     id, name, password, status
@@ -24,7 +28,11 @@
     insert into admini (id, name, password, 
       status)
     values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+<<<<<<< HEAD
       #{status,jdbcType=INTEGER})
+=======
+      #{status,jdbcType=TINYINT})
+>>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
   </insert>
   <insert id="insertSelective" parameterType="com.zt.pojo.Admini">
     insert into admini
@@ -53,7 +61,11 @@
         #{password,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
+<<<<<<< HEAD
         #{status,jdbcType=INTEGER},
+=======
+        #{status,jdbcType=TINYINT},
+>>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
       </if>
     </trim>
   </insert>
@@ -67,7 +79,11 @@
         password = #{password,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
+<<<<<<< HEAD
         status = #{status,jdbcType=INTEGER},
+=======
+        status = #{status,jdbcType=TINYINT},
+>>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
@@ -76,7 +92,11 @@
     update admini
     set name = #{name,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
+<<<<<<< HEAD
       status = #{status,jdbcType=INTEGER}
+=======
+      status = #{status,jdbcType=TINYINT}
+>>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
     where id = #{id,jdbcType=VARCHAR}
   </update>
 

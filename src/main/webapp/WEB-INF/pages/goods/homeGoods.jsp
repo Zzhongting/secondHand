@@ -44,7 +44,38 @@
             </ul>
         </div>
     </div>
+<<<<<<< HEAD
 
+=======
+    <!--
+        描述：最新发布
+    --><%--
+    <div class="index-title">
+        <a href="/goods/catelog/0">最新发布</a>
+        <hr class="hr1">
+        <hr class="hr2">
+    </div>
+    <div class="waterfoo stark-components row">
+        <div class="item-wrapper normal">
+            <c:forEach var="item" items="${catelogGoods0}">
+                <div class="card col">
+                    <a href="<%=basePath%>goods/goodsId/${item.goods.id}">
+                        <div class="card-image">
+                            <img src="../upload/${item.images[0].imgUrl}" />
+                        </div>
+                        <div class="card-content item-price"><c:out value="${item.goods.price}"></c:out></div>
+                        <div class="card-content item-name">
+                            <p><c:out value="${item.goods.name}"></c:out></p>
+                        </div>
+                        <div class="card-content item-location">
+                            <p>江西理工大学</p>
+                            <p><c:out value="${item.goods.startTime}"></c:out></p>
+                        </div>
+                    </a>
+                </div>
+            </c:forEach>
+        </div>--%>
+>>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
 
 </div>
 

@@ -13,14 +13,24 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.*;
+=======
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+>>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+<<<<<<< HEAD
 import java.io.IOException;
+=======
+>>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
 import java.io.InputStream;
 import java.util.List;
 
@@ -61,6 +71,7 @@ public class AdminController {
     @RequestMapping(value = "/logins")
     public String login() { return "/admin/logins"; }
 
+<<<<<<< HEAD
     @RequestMapping(value = "/checkID/{id}", method = RequestMethod.POST)
     @ResponseBody
     public String existUser(@PathVariable("id") String id, HttpServletResponse response)
@@ -76,6 +87,8 @@ public class AdminController {
         }
         return null;
     }
+=======
+>>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
     /**
      * 管理员登录
      * @param request
@@ -92,11 +105,22 @@ public class AdminController {
            if(admini.getName().equals(admin.getName())&&admini.getPassword().equals(admin.getPassword())){
                request.getSession().setAttribute("cur_admin",admin);
                return new ModelAndView("redirect:"+urlNew);
+<<<<<<< HEAD
            } else{
                modelMap.put("Msg","用户名或密码错误");
            }
         }
         return new ModelAndView("redirect:"+url);
+=======
+           }else{
+               //用户名或密码错误
+               return new ModelAndView("false");
+           }
+        }else{
+            //用户不存在，
+            return new ModelAndView("false");
+        }
+>>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
     }
     /*获取用户信息*/
     @RequestMapping(value="/getUserInfo",produces = {"application/json;charset=UTF-8"})
