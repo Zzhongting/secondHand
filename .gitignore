@@ -1,0 +1,24 @@
+*.class
+ 
+# Package Files #
+*.jar
+*.war
+*.ear
+ 
+# ignore Maven generated target folders
+target/
+ 
+# ignore eclipse files
+.project
+.classpath
+.settings
+.metadata
+
+#idea配置
+.idea/
+*.iml
+context.xml
+
+#本地配置文件
+/src/main/resources/profile_bk/local/*.properties
+/target/
