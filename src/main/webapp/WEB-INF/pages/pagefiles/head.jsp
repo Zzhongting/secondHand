@@ -63,6 +63,46 @@
                 $("#changeName").css("display","block");
             }
         }
+<<<<<<< HEAD
+        function checkPhone() {
+            $.post(
+                "/user/checkPhone/" + $("#phone").val(),
+                {},
+                function (data) {
+                    if (data == 0) {
+                        document.getElementById("span1").innerHTML = "<font color='red'>手机号不存在</font>";
+                        $("#phone").val("");
+                        $("#phone").focus();
+                        $(".submit").unbind("click",
+                            function (event) {
+
+                            });
+                    } else {
+                        document.getElementById("span1").innerHTML = "<font color='green'>手机号✔</font>";
+                    }
+                });
+        }
+        function checkPhone1() {
+            $.post(
+                "/user/checkPhone/" + $("#phone1").val(),
+                {},
+                function (data) {
+                    if (data == 1) {
+                        document.getElementById("span2").innerHTML = "<font color='red'>手机号已被注册</font>";
+                        $("#phone1").val("");
+                        $("#phone1").focus();
+                        $(".submit").unbind("click",
+                            function (event) {
+
+                            });
+                    } else {
+                        document.getElementById("span2").innerHTML = "<font color='green'>手机号✔</font>";
+                    }
+                });
+        }
+    </script>
+<body ng-view="ng-view">
+=======
         function validatePhone(phone){
             $.ajax({
                 url:"/user/login",
@@ -81,6 +121,7 @@
     </script>
 <body ng-view="ng-view">
 
+>>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
 <div ng-controller="headerController" class="header stark-components navbar-fixed ng-scope">
     <nav class="white nav1">
         <div class="nav-wrapper">
@@ -159,12 +200,26 @@
                 <form:form action="/user/login" id="logins" method="post" commandName="user" role="form">
 
                     <div class="input-field col s12">
+<<<<<<< HEAD
+                        <input type="text" id="phone" name="phone" required="required" pattern="^1[0-9]{10}$" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" onblur="checkPhone();" />
+                        <span id="span1" style="padding-left: 10px;"></span>
+                        <label>手机号</label>
+
+=======
                         <input type="text" name="phone" required="required" pattern="^1[0-9]{10}$" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" onblur="validatePhone(phone)"/>
                         <label>手机  <span id="errorMsg"></span> </label>
+>>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
                     </div>
                     <div class="input-field col s12">
                         <input type="password" name="password" required="required" class="validate ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" />
                         <label>密码</label>
+<<<<<<< HEAD
+                        <c:if test="${noPassword != null}">
+                            <span style="color:red;">密码错误</span>
+                        </c:if>
+
+=======
+>>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
                         <a onclick="showForget()" class="forget-btn">忘记密码？</a>
                     </div>
                     <button type="submit" class="waves-effect waves-light btn login-btn red lighten-1">
@@ -197,8 +252,15 @@
                         <label>昵称</label>
                     </div>
                     <div class="input-field col s12">
+<<<<<<< HEAD
+                        <input type="text" id="phone1" name="phone" required="required" pattern="^1[0-9]{10}$" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" onblur="checkPhone1()"/>
+                        <span id="span2" style="padding-left: 10px;"></span>
+                        <label>手机号</label>
+
+=======
                         <input type="text" name="phone" required="required" pattern="^1[0-9]{10}$" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" />
                         <label>手机</label>
+>>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
                     </div>
                     <div class="input-field col s12">
                         <input type="text" name="QQ" required="required" pattern="^[1-9]{1}[0-9]{8|9}$" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" />
