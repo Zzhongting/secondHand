@@ -7,11 +7,7 @@ public class Admini {
 
     private String password;
 
-<<<<<<< HEAD
     private int status;
-=======
-    private Byte status;
->>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
 
     public String getId() {
         return id;
@@ -37,19 +33,11 @@ public class Admini {
         this.password = password == null ? null : password.trim();
     }
 
-<<<<<<< HEAD
     public int getStatus() {
         return status;
     }
 
     public void setStatus(int status) {
-=======
-    public Byte getStatus() {
-        return status;
-    }
-
-    public void setStatus(Byte status) {
->>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
         this.status = status;
     }
 }

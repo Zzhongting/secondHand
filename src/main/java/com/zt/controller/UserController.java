@@ -6,21 +6,15 @@ import com.zt.util.DateUtil;
 import com.zt.util.MD5;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.*;
-=======
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
->>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-<<<<<<< HEAD
 import java.io.IOException;
-=======
->>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,10 +42,7 @@ public class UserController {
         String url=request.getHeader("Referer");
         if(user1 != null) {
             User user = userService.getUserByPhone(user1.getPhone());
-<<<<<<< HEAD
-=======
             //检测该用户是否已经注
->>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
             if(user==null) {
                 //创建开始时间
                 user1.setCreateAt(DateUtil.getNowDate());
@@ -59,16 +50,10 @@ public class UserController {
                 user1.setPassword(MD5.md5(user1.getPassword()));
                 user1.setGoodsNum(0);
                 userService.addUser(user1);
-<<<<<<< HEAD
             }
-=======
             } else{
                 //用户已注册
             }
-        } else{
-
->>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
-        }
         return "redirect:"+url;
     }
 
@@ -94,7 +79,6 @@ public class UserController {
                     return new ModelAndView("redirect:" + url);
                 } else {
                     //密码错误
-<<<<<<< HEAD
                     modelMap.put("noPassword","noPassword");
                     return new ModelAndView("redirect:/goods/homeGoods");
                 }
@@ -119,18 +103,6 @@ public class UserController {
         return null;
     }
 
-=======
-                }
-            } else {
-                //用户不存在，
-                return new ModelAndView("false");
-            }
-        }else{
-
-        }
-        return new ModelAndView("redirect:"+url);
-    }
->>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
     /**
      * 找回密码
      * @param request
@@ -152,11 +124,6 @@ public class UserController {
             cur_user.setPassword(str);//更改当前用户的密码
             userService.updateUser(cur_user);
             request.getSession().setAttribute("cur_user",cur_user);//修改session值
-<<<<<<< HEAD
-=======
-        }else{
-
->>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
         }
          return new ModelAndView("redirect:"+url);
     }

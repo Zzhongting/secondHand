@@ -40,11 +40,7 @@ public class AdminiServiceImpl implements AdminiService {
     /*根据id查询管理员信息*/
     public Admini selectByPrimaryKey(String id){
         if(StringUtils.isNotBlank(id))
-<<<<<<< HEAD
            return  adminiMapper.selectByPrimaryKey(id);
-=======
-            adminiMapper.selectByPrimaryKey(id);
->>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
         return  null;
     }
     /*查询当前页的管理员信息*/
