@@ -20,17 +20,11 @@
 			<a class="btn btn-primary" href="/admin/exportUser">导出数据为excel</a>
 			<a class="btn btn-primary" href="#" id="add">添加管理员</a>
 			<div class="btn-group">
-<<<<<<< HEAD
 				<c:if test="${cur_admin.status == 1}">
 				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					查看接口数据 <span class="caret"></span>
 				</button>
 				</c:if>
-=======
-				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					查看接口数据 <span class="caret"></span>
-				</button>
->>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
 				<ul class="dropdown-menu">
 					<li><a href="/admin/users?current=1&rowCount=10&sort[sender]=asc&searchPhrase=&id=b0df282a-0d67-40e5-8558-c9e93b7befed" target="_blank">JSON</a></li>
 				</ul>

@@ -44,9 +44,6 @@
             </ul>
         </div>
     </div>
-<<<<<<< HEAD
-
-=======
     <!--
         描述：最新发布
     --><%--
@@ -75,8 +72,6 @@
                 </div>
             </c:forEach>
         </div>--%>
->>>>>>> bf14b1afce697f4148e462c054988775fd4219a8
-
 </div>
 
     <c:forEach var="ca" items="${catelog}">
