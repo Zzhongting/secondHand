@@ -5,6 +5,7 @@ import com.zt.service.*;
 import com.zt.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,7 +39,7 @@ public class GoodsController {
      * @throws Exception
      */
     @RequestMapping(value = "/homeGoods")
-    public ModelAndView homeGoods() throws Exception {
+    public ModelAndView homeGoods(HttpServletRequest request,ModelMap modelmap) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
         //商品种类数量
         List<Catelog> catelogs = catelogService.getAllCatelog();
@@ -61,6 +62,12 @@ public class GoodsController {
                     }
                     map.put(cat.getId(),goodsAndImage);
                     modelAndView.addObject("map", map);
+                }
+            }
+            if(request.getParameter("noPassword") != null){
+                String reset =request.getParameter("noPassword");
+                if(reset.equals("false")){
+                    modelmap.put("noPassword","noPassword");
                 }
             }
             modelAndView.addObject("catelog",catelogs);
@@ -272,8 +279,8 @@ public class GoodsController {
             goods.setUserId(cur_user.getId());
             goods.setStatus(1);
             int i = goodsService.addGood(goods,10);//在goods表中插入物品
-            //返回插入的该物品的id
-            int goodsId = goods.getId();
+            List<Goods> good = goodsService.getGoodsByUserId(cur_user.getId());
+            int goodsId = good.get(0).getId();
             ima.setGoodsId(goodsId);
             imageService.insert(ima);//在image表中插入商品图片
             //发布商品后，catlog的number+1，user表的goods_num+1，更新session的值

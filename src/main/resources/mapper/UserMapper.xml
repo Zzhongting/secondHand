@@ -161,7 +161,7 @@
   </select>
   <update id="updateGoodsNum" parameterType="Integer" >
     update user
-    set goods_num = #{goodsNum,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
+    set goods_num = 1
+    where id = 0
   </update>
 </mapper>

@@ -46,22 +46,22 @@
         -->
         <div id="user_content">
             <div class="basic">
-                <form:form action="/goods/editGoodsSubmit" method="post" role="form" enctype="multipart/form-data">
+                <form:form action="/goods/editGoodsSubmit" method="post" role="form" enctype="multipart/form-data" onsubmit="return checkForm();">
                     <h1 style="margin-left: 210px;">修改物品信息</h1><hr />
                     <div class="changeinfo">
                         <span>物品名：</span>
-                        <input class="in_info" type="text" name="name" placeholder="请输入物品名" value="${goodsExtend.goods.name}"/>
+                        <input class="in_info" type="text" id="name" name="name" placeholder="请输入物品名" value="${goodsExtend.goods.name}"/>
                         <span>(*必填)</span>
                     </div>
                     <div class="changeinfo">
                         <span>出售价格：</span>
-                        <input class="in_info" type="text" name="price" placeholder="请输入出售价格" value="${goodsExtend.goods.price}"/>
+                        <input class="in_info" type="text" id="price" name="price" placeholder="请输入出售价格" value="${goodsExtend.goods.price}"/>
                        <span>(*必填)</span>
                    </div>
                    <div class="changeinfo">
                         <span>原价：</span>
-                        <input class="in_info" type="text" name="realPrice" placeholder="请输入商品原价" value="${goodsExtend.goods.realPrice}"/>
-                        <span id="checkphone">(*选填,请如实填写)</span>
+                        <input class="in_info" type="text" id="realPrice" name="realPrice" placeholder="请输入商品原价" value="${goodsExtend.goods.realPrice}"/>
+                        <span id="checkphone">(*必填)</span>
                      </div>
                      <div class="changeinfo">
                         <span>物品类别：</span>
@@ -113,5 +113,25 @@
         </div>
     </div>
 </div>
+<script>
+    function checkForm() {
+        var name = $("#name").val();
+        if (name == null || name == '') {
+            alert("物品名不能为空!");
+            return false;
+        }
+        var price = $("#price").val();
+        if (price == null || price == '') {
+            alert("出售价格不能为空!");
+            return false;
+        }
+
+        var realPrice = $("#realPrice").val();
+        if (realPrice == null || realPrice == '') {
+            alert("原价不能为空!");
+            return false;
+        }
+    }
+</script>
 </body>
 </html>

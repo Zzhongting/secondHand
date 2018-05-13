@@ -164,7 +164,6 @@
       start_time = #{startTime,jdbcType=VARCHAR},
       polish_time = #{polishTime,jdbcType=VARCHAR},
       end_time = #{endTime,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER},
       describle = #{describle,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -206,7 +205,7 @@
   <select id="getGoodsByUserId" resultMap="ResultMapWithBLOBs">
     select <include refid="Base_Column_List" />,<include refid="Blob_Column_List"/>
     from goods
-    where user_id = #{user_id,jdbcType=INTEGER}
+    where user_id = #{user_id,jdbcType=INTEGER} order by id desc;
   </select>
   <select id="selectByCatelogOrderByDate" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select <include refid="Base_Column_List" />,<include refid="Blob_Column_List"/>

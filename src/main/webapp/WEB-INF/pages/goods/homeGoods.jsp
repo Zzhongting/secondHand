@@ -11,6 +11,11 @@
     描述：顶部
 -->
 <c:import url="../pagefiles/head.jsp"></c:import>
+<c:if test="${noPassword != null}">
+    <script>
+        alert('密码错误！请重新登录');
+    </script>
+</c:if>
 <!--
     描述：左侧导航条
 -->

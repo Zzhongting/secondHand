@@ -70,7 +70,6 @@
                 function (data) {
                     if (data == 0) {
                         document.getElementById("span1").innerHTML = "<font color='red'>手机号不存在</font>";
-                        $("#phone").val("");
                         $("#phone").focus();
                         $(".submit").unbind("click",
                             function (event) {
@@ -81,6 +80,7 @@
                     }
                 });
         }
+
         function checkPhone1() {
             $.post(
                 "/user/checkPhone/" + $("#phone1").val(),
@@ -101,7 +101,6 @@
         }
     </script>
 <body ng-view="ng-view">
-
 <div ng-controller="headerController" class="header stark-components navbar-fixed ng-scope">
     <nav class="white nav1">
         <div class="nav-wrapper">
@@ -177,7 +176,7 @@
                 <a onclick="showLogin()">
                     <div class="col s12 title"></div>
                 </a>
-                <form:form action="/user/login" id="logins" method="post" commandName="user" role="form">
+                <form:form action="/user/login" id="logins" method="post" commandName="user" role="form" onsubmit="checkPassword();" >
 
                     <div class="input-field col s12">
                         <input type="text" id="phone" name="phone" required="required" pattern="^1[0-9]{10}$" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" onblur="checkPhone();" />
@@ -185,11 +184,8 @@
                         <label>手机号</label>
                     </div>
                     <div class="input-field col s12">
-                        <input type="password" name="password" required="required" class="validate ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" />
+                        <input type="password" id="password1" name="password" required="required" class="validate ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" />
                         <label>密码</label>
-                        <c:if test="${noPassword != null}">
-                            <span style="color:red;">密码错误</span>
-                        </c:if>
                         <a onclick="showForget()" class="forget-btn">忘记密码？</a>
                     </div>
                     <button type="submit" class="waves-effect waves-light btn login-btn red lighten-1">
@@ -218,7 +214,7 @@
                 </a>
                 <form:form action="/user/addUser" method="post" commandName="user" role="form">
                     <div class="input-field col s12">
-                        <input type="text" name="username" required="required" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" />
+                        <input type="text" id="username" name="username" required="required" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" />
                         <label>昵称</label>
                     </div>
                     <div class="input-field col s12">
@@ -227,15 +223,15 @@
                         <label>手机号</label>
                     </div>
                     <div class="input-field col s12">
-                        <input type="text" name="QQ" required="required" pattern="^[1-9]{1}[0-9]{8|9}$" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" />
+                        <input type="text" id="QQ" name="QQ" required="required" pattern="^[1-9]{1}[0-9]{8|9}$" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" />
                         <label>QQ</label>
                     </div>
                     <div class="input-field col s12">
-                        <input type="password" name="password" required="required" class="validate ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" />
+                        <input type="password" id="password" name="password" required="required" class="validate ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" />
                         <label>密码</label>
                     </div>
                     <div class="input-field col s12">
-                        <input type="text" name="address" required="required" class="validate ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" />
+                        <input type="text" id="address" name="address" required="required" class="validate ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" />
                         <label>地址</label>
                     </div>
                     <div ng-show="checkTelIsShow" class="col s12">

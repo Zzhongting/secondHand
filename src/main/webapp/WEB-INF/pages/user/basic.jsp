@@ -10,9 +10,11 @@
 <head>
     <meta charset="UTF-8">
     <title>个人设置</title>
+    <script type="text/javascript" src="<%=basePath%>js/jquery.js" ></script>
     <link rel="stylesheet" href="../css/font-awesome.min.css" />
     <link rel="stylesheet" href="../css/userhome.css" />
     <link rel="stylesheet" href="../css/user.css" />
+
 
 </head>
 <body>
@@ -38,28 +40,28 @@
         -->
         <div id="user_content">
             <div class="basic">
-                <form:form action="/user/updateInfo" method="post" commandName="user" role="form">
+                <form:form action="/user/updateInfo" method="post" commandName="user" role="form" onsubmit="return checkForm();">
                     <h1>完善与修改个人信息</h1><hr />
                     <div class="changeinfo">
                         <span>昵称：</span>
-                        <input class="in_info" type="text" name="username" placeholder="请输入昵称" value="${cur_user.username}"/>
+                        <input class="in_info" type="text" id="username" name="username" placeholder="请输入昵称" value="${cur_user.username}"/>
                     </div><hr />
                     <div class="changeinfo">
                         <span>开通时间：</span>
-                        <input class="in_info" type="text" name="createAt" value="${cur_user.createAt}" readonly="true"/>
+                        <input class="in_info" type="text" id="createAt" name="createAt" value="${cur_user.createAt}" readonly="true"/>
                     </div><hr />
                     <div class="changeinfo">
                         <span>手机号码：</span>
-                        <input class="in_info" type="text" name="phone" value="${cur_user.phone}" readonly="true"/>
-                        <span id="checkphone">已验证</span>
+                        <input class="in_info" type="text" id="phone" name="phone" value="${cur_user.phone}" onblur="phoneCheck();"/>
+                        <span id="span1"></span>
                     </div><hr />
                     <div class="changeinfo">
                         <span>QQ：</span>
-                        <input class="in_info" type="text" name="qq" placeholder="请输入QQ" value="${cur_user.qq}"/>
+                        <input class="in_info" type="text" id="qq" name="qq" placeholder="请输入QQ" value="${cur_user.qq}"/>
                     </div>
                     <div class="changeinfo">
                         <span>地址：</span>
-                        <input class="in_info" type="text" name="address" placeholder="请输入地址" value="${cur_user.address}"/>
+                        <input class="in_info" type="text" id="address" name="address" placeholder="请输入地址" value="${cur_user.address}"/>
                     </div>
                     <input type="submit" class="setting-save" value="保存修改信息" />
                 </form:form>
@@ -67,5 +69,50 @@
         </div>
     </div>
 </div>
+<script>
+    function phoneCheck() {
+        $.post(
+            "/user/phoneCheck/" + $("#phone").val(),
+            {},
+            function (data) {
+                if (data == 1) {
+                    document.getElementById("span1").innerHTML = "<font color='red'>手机号已被使用</font>";
+                    $("#phone").focus();
+                    $(".submit").unbind("click",
+                        function (event) {
+
+                        });
+                }
+                if(data == 0){
+                    document.getElementById("span1").innerHTML = "<font color='green'>手机号✔</font>";
+                }
+            });
+    }
+
+    function checkForm() {
+        var username = $("#username").val();
+        if (username == null || username == '') {
+            alert("姓名不能为空!");
+            return false;
+        }
+        var phone = $("#phone").val();
+        if (phone == null || phone == '') {
+            alert("手机号不能为空!");
+            return false;
+        }
+
+        var qq = $("#qq").val();
+        if (qq == null || qq == '') {
+            alert("qq不能为空!");
+            return false;
+        }
+        var address = $("#address").val();
+        if (address == null || address == '') {
+            alert("地址不能为空!");
+            return false;
+        }
+
+        }
+</script>
 </body>
 </html>

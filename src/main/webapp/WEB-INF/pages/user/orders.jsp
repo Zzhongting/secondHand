@@ -14,6 +14,10 @@
     <link rel="stylesheet" href="../css/emoji.css" />
     <link rel="stylesheet" href="../css/userhome.css" />
     <link rel="stylesheet" href="../css/user.css" />
+    <script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -37,49 +41,43 @@
         <!--
             描述：右侧内容区域
         -->
-        <div id="user_content">
-            <div class="share">
-                <!--
-                    描述：订单展示展示
-                -->
-                <div class="share_content">
+        <div class="panel-body" style="padding-top:150px;padding-left:250px;">
+            <div class="row">
+                <div id="div1" class="col-md-12">
                     <c:if test="${empty orderList}">
                         <div class="no_share">
                             <span>空空如也，去逛逛吧！</span>
                         </div>
                     </c:if>
                     <c:if test="${!empty orderList}">
-                        <table  cellpadding=3 cellspacing=1 align=center style="font-size: 15px;">
-                            <tr>
-                                <td valign=middle align=center height=35
-                                    width="150" ><b>序号</b></td>
-                                <td valign=middle align=center height=35
-                                    width="250"><b>订单编号</b></td>
-                                <td valign=middle align=center height=35
-                                    width="250"><b>商品名称</b></td>
-                                <td valign=middle align=center height=25
-                                    width="150"><b>商品价格</b></td>
-                                <td valign=middle align=center height=35
-                                    width="350"><b>下单日期</b></td>
-                                <td valign=middle align=center height=35
-                                     width="350"><b>操作</b></td>
-                            </tr>
-                            <% int i = 1; %>
-                            <c:forEach var="items" items="${orderList}">
-                                <tr height=25 align=center>
-                                    <td valign=middle width="">&nbsp;&nbsp;<%= i++ %></td>
-                                    <td valign=middle width="">&nbsp;&nbsp;${items.id}</td>
-                                    <td valign=middle width="">&nbsp;&nbsp;${items.goodsName}</td>
-                                    <td valign=middle width="">&nbsp;&nbsp;${items.cost}</td>
-                                    <td valign=middle width="">&nbsp;&nbsp;${items.orderdate}</td>
-                                    <td valign=middle width="">&nbsp;&nbsp;
-                                        <a href="<%=basePath%>goods/goodsId/${items.goodsId}">查看商品信息</a>
-                                    </td>
+                        <table  class="table">
+                            <thead>
+                                <tr>
+                                    <td>序号</td>
+                                    <td>订单编号</td>
+                                    <td>商品名称</td>
+                                    <td>商品价格</td>
+                                    <td>下单日期</td>
+                                    <td>操作</td>
                                 </tr>
+                            </thead>
+                            <tbody>
+                                <% int i = 1; %>
+                                <c:forEach var="items" items="${orderList}">
+                                    <tr>
+                                        <td><%= i++ %></td>
+                                        <td>${items.id}</td>
+                                        <td>${items.goodsName}</td>
+                                        <td>${items.cost}</td>
+                                        <td>${items.orderdate}</td>
+                                        <td>
+                                            <a href="<%=basePath%>goods/goodsId/${items.goodsId}">查看商品信息</a>
+                                        </td>
+                                    </tr>
 
-                            </c:forEach>
+                                </c:forEach>
+                            </tbody>
                         </table>
-
                     </c:if>
                 </div>
             </div>

@@ -49,22 +49,22 @@
         -->
         <div id="user_content">
             <div class="basic">
-                <form:form action="/goods/publishGoodsSubmit" method="post" role="form" enctype="multipart/form-data">
+                <form:form action="/goods/publishGoodsSubmit" method="post" role="form" enctype="multipart/form-data" onsubmit="return checkForm();">
                     <h1 style="margin-left: 210px;">发布物品</h1><hr />
                     <div class="changeinfo">
                         <span>物品名：</span>
-                        <input class="in_info" type="text" name="name" placeholder="请输入物品名"/>
+                        <input class="in_info" id="name" type="text" name="name" placeholder="请输入物品名"/>
                         <span>(*必填)</span>
                     </div>
                     <div class="changeinfo">
                         <span>出售价格：</span>
-                        <input class="in_info" type="text" name="price" placeholder="请输入出售价格"/>
+                        <input class="in_info" id="price" type="text" name="price" placeholder="请输入出售价格"/>
                         <span>(*必填)</span>
                     </div>
                     <div class="changeinfo">
                         <span>原价：</span>
-                        <input class="in_info" type="text" name="realPrice" placeholder="请输入商品原价"/>
-                        <span id="checkphone">(选填,请如实填写)</span>
+                        <input class="in_info" type="text" id="realPrice" name="realPrice" placeholder="请输入商品原价"/>
+                        <span id="checkphone">(*必填)</span>
                     </div>
                     <div class="changeinfo">
                         <span>物品类别：</span>
@@ -97,9 +97,11 @@
                                     <div class="form-group">
                                         <div class="col-sm-10" style="padding-left: 0px;">
                                             <input type="file" name="myfile" data-ref="imgUrl" class="col-sm-10 myfile" value=""/>
-                                            <input type="hidden" name="imgUrl" value="">
+                                            <span>(*必填)</span>
+                                            <input type="hidden" name="imgUrl" id="imgUrl" value="">
                                         </div>
                                         <input type="submit" class="setting-save" value="发布物品" style="margin-top: 20px;background-color: blue;"/>
+
                                     </div>
                                 </div>
                             </div>
@@ -110,6 +112,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 <script>
     $(".myfile").fileinput({
@@ -165,6 +168,33 @@
     $('.myfile').on('filepreupload', function(event, data, previewId, index) {
         console.log("filepreupload");
     });
+
+
+    function checkForm() {
+            var name = $("#name").val();
+            if (name == null || name == '') {
+                alert("物品名不能为空!");
+                return false;
+            }
+            var price = $("#price").val();
+            if (price == null || price == '') {
+                alert("出售价格不能为空!");
+                return false;
+            }
+
+            var realPrice = $("#realPrice").val();
+            if (realPrice == null || realPrice == '') {
+                alert("原价不能为空!");
+                return false;
+            }
+
+            var imgUrl = $("#imgUrl").val();
+            if (imgUrl == null || imgUrl == '') {
+                alert("图片不能为空!");
+                return false;
+            }
+
+        }
 </script>
 </body>
 </html>

@@ -65,7 +65,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/login")
-    public ModelAndView loginValidate(HttpServletRequest request, HttpServletResponse response, User user, ModelMap modelMap) {
+    public String loginValidate(HttpServletRequest request, HttpServletResponse response, User user, ModelMap modelMap) throws IOException{
         String url = request.getHeader("Referer");
         if(user != null) {
             //获取数据库中的用户信息
@@ -76,15 +76,15 @@ public class UserController {
                 String pwd = MD5.md5(user.getPassword());
                 if (pwd.equals(cur_user.getPassword())) {
                     request.getSession().setAttribute("cur_user", cur_user);
-                    return new ModelAndView("redirect:" + url);
+                    return "redirect:" + url;
                 } else {
                     //密码错误
-                    modelMap.put("noPassword","noPassword");
-                    return new ModelAndView("redirect:/goods/homeGoods");
+                   modelMap.put("noPassword","false");
+                   return "redirect:/goods/homeGoods";
                 }
             }
         }
-        return new ModelAndView("redirect:"+url);
+        return "redirect:"+url;
     }
 
     @RequestMapping(value = "/checkPhone/{phone}", method = RequestMethod.POST)
@@ -96,6 +96,30 @@ public class UserController {
         if (cur_user != null) {
             // 用户名存在
             response.getWriter().println("1");
+        } else {
+            // 可以使用用户名
+            response.getWriter().println("0");
+        }
+        return null;
+    }
+
+    @RequestMapping(value = "/phoneCheck/{phone}", method = RequestMethod.POST)
+    @ResponseBody
+    public String existUser1(@PathVariable("phone") String phone, HttpServletResponse response,HttpServletRequest request)
+            throws IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        User cur_user1 = (User) request.getSession().getAttribute("cur_user");
+        User cur_user = userService.getUserByPhone(phone);
+
+        if (cur_user != null) {
+            // 用户名存在
+
+            if(cur_user.getPhone().equals(cur_user1.getPhone())){
+                response.getWriter().print("2");
+            }else {
+                response.getWriter().println("1");
+            }
+
         } else {
             // 可以使用用户名
             response.getWriter().println("0");
@@ -125,6 +149,7 @@ public class UserController {
             userService.updateUser(cur_user);
             request.getSession().setAttribute("cur_user",cur_user);//修改session值
         }
+
          return new ModelAndView("redirect:"+url);
     }
     /**
