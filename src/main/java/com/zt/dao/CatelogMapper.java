@@ -16,6 +16,8 @@ public interface CatelogMapper {
 
     int updateByPrimaryKey(Catelog record);
 
+    int updateNameStatus(Catelog catelog);
+
     int updateCatelogNum(Integer id, Integer number);
 
     List<Catelog> getCatelogList();

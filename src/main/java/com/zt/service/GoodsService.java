@@ -85,4 +85,10 @@ public interface GoodsService {
      * @return
      */
     public List<Goods> getPageGoods(int pageNum, int pageSize);
+
+    /**
+     * 管理员管理商品
+     * @param goods
+     */
+    public void updateStatus(Goods goods);
 }

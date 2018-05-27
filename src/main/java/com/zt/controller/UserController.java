@@ -4,6 +4,8 @@ import com.zt.pojo.*;
 import com.zt.service.*;
 import com.zt.util.DateUtil;
 import com.zt.util.MD5;
+import com.zt.util.SendSms;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -135,22 +137,23 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/findPassword")
-    public ModelAndView findPassword(HttpServletRequest request, User user, ModelMap modelMap) {
+    public ModelAndView findPassword(HttpServletRequest request, User user, @RequestParam("vscode") String vsCode ,ModelMap modelMap) {
         String url=request.getHeader("Referer");
-        if(user != null){
-            User cur_user  = userService.getUserByPhone(user.getPhone());
-            if(cur_user==null||!user.getUsername().equals(cur_user.getUsername())){
-                url="/";
-                //输入的电话号码或者用户名有误
-                return new ModelAndView("redirect:"+url);
+        String code = (String) request.getSession().getAttribute("code");
+        if(code == null){
+            return new ModelAndView("redirect:"+url);
+        }
+        if(StringUtils.equals(vsCode,code)){
+            if(user != null){
+                User cur_user  = userService.getUserByPhone(user.getPhone());
+                String str = MD5.md5(user.getPassword());
+                cur_user.setPassword(str);//更改当前用户的密码
+                userService.updateUser(cur_user);
+                request.getSession().setAttribute("cur_user",cur_user);//修改session值
             }
-            String str = MD5.md5(user.getPassword());
-            cur_user.setPassword(str);//更改当前用户的密码
-            userService.updateUser(cur_user);
-            request.getSession().setAttribute("cur_user",cur_user);//修改session值
         }
 
-         return new ModelAndView("redirect:"+url);
+        return new ModelAndView("redirect:"+url);
     }
     /**
      * 更改用户名
@@ -263,5 +266,21 @@ public class UserController {
         mv.addObject("orderList",ordersList);
         mv.setViewName("/user/orders");
         return mv;
+    }
+
+    /**
+     * 我的订单
+     * 查询出所有订单
+     * @return
+     */
+    @RequestMapping(value = "/sendSms/{phone}")
+    @ResponseBody
+    public String sendSms(@PathVariable("phone") String phone,HttpServletRequest request,HttpServletResponse response) {
+        try {
+            SendSms.sendSms(phone,request);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -17,7 +17,6 @@
 	<div class="row">
 		<div class="col-md-12">
 			<h2>商品目录信息</h2>
-			<a class="btn btn-primary" href="/admin/exportCatelog">导出数据为excel</a>
 			<a class="btn btn-primary" href="#" id="add">添加目录</a>
 			<div class="btn-group">
 				<c:if test="${cur_admin.status == 1}">
@@ -68,8 +67,9 @@
             {
                 alert("您确定要删除:‘" + $(this).data("row-id")+"’目录吗");
                 $.post("/catelog/deleteCatelog",{id:$(this).data("row-id")},function(data){
-                    if(data==true){
+                    if(data==1){
                         alert("删除成功");
+                        window.location.href = "${pageContext.request.contextPath}/admin/catelogList";
 					}
                     else{
                         alert("删除失败");

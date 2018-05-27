@@ -11,7 +11,13 @@
     <meta charset="utf-8" />
     <base href="<%=basePath%>">
     <title>江理二手工坊</title>
+    <script src="../js/jquery-3.1.1.min.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="../css/jquery.bootgrid.min.css">
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.bootgrid.min.js"></script>
+    <script src="../js/bootstrap-datetimepicker.min.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap-datetimepicker.min.css" type="text/css"></link>
 </head>
 <style type="text/css">
 
@@ -70,31 +76,13 @@
 <script>
     function checkID() {
         $.post(
-            "/user/checkID/" + $("#Id").val(),
+            "/admin/checkID/" + $("#AdminId").val(),
             {},
             function (data) {
                 if (data == 0) {
-                    document.getElementById("span1").innerHTML = "<font color='red'>管理员不存在</font>";
-                    $("#Id").val("");
-                    $("#Id").focus();
-                    $(".submit").unbind("click",
-                        function (event) {
-
-                        });
-                } else {
-                    document.getElementById("span1").innerHTML = "<font color='green'>管理员✔</font>";
-                }
-            });
-    }
-    function checkID() {
-        $.post(
-            "/user/checkID/" + $("#Id").val(),
-            {},
-            function (data) {
-                if (data == 0) {
-                    document.getElementById("span1").innerHTML = "<font color='red'>管理员不存在</font>";
-                    $("#Id").val("");
-                    $("#Id").focus();
+                    document.getElementById("span1").innerHTML = "<font color='red'>没有管理员</font>";
+                    $("#AdminId").val("");
+                    $("#AdminId").focus();
                     $(".submit").unbind("click",
                         function (event) {
 
@@ -112,13 +100,15 @@
             <ul id="bl">
                 <p><strong>管理员登录</strong></p>
                 <li>编&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号&nbsp;&nbsp;
-                    <input type="text" required="required" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" size="28" id="Id" name="id" onblur="checkID()"></li>
-                <span id="span1" style="padding-left: 10px;"></span>
-                <li>用&nbsp;户&nbsp;名&nbsp;&nbsp;&nbsp;<input type="text" required="required" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" size="28" name="name"></li>
-                <li>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码&nbsp;&nbsp;<input type="password" required="required" class="validate ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" size="28" name="password"></li>
-                <c:if test="${Msg != null}">
-                    <span style="color:red;">${Msg}</span>
-                </c:if>
+                    <input type="text" required="required" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" size="20" id="AdminId" name="id" onblur="checkID()">
+                    <span id="span1" style="padding-left: 10px;"></span>
+                </li>
+                <li>用&nbsp;户&nbsp;名&nbsp;&nbsp;&nbsp;<input type="text" required="required" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" size="20" name="name"></li>
+                <li>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码&nbsp;&nbsp;<input type="password" required="required" class="validate ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" size="20" name="password">
+                    <c:if test="${Msg != null}">
+                        <span style="color:red;">${Msg}</span>
+                    </c:if>
+                </li>
                 <li><input type="submit" class="demo"  value="登录">
                     <a href="<%=basePath%>goods/homeGoods" class="demo">返回</a>
                 </li>

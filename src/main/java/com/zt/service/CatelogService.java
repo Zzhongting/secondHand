@@ -19,4 +19,6 @@ public interface CatelogService {
     Catelog selectByPrimaryKey(Integer id);
     /*分页查询目录*/
     List<Catelog> getPageCatelog(int current, int rowCount);
+    /*修改目录信息*/
+    public int updateNameStatus(Catelog record);
 }

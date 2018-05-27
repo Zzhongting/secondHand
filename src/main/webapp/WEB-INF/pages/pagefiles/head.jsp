@@ -99,6 +99,56 @@
                     }
                 });
         }
+
+        function checkPhone2() {
+            $.post(
+                "/user/checkPhone/" + $("#phone3").val(),
+                {},
+                function (data) {
+                    if (data == 1) {
+                        document.getElementById("span3").innerHTML = "<font color='green'>手机号✔</font>";
+                    } else {
+                        document.getElementById("span3").innerHTML = "<font color='red'>手机号不存在</font>";
+                        $("#phone3").val("");
+                        $("#phone3").focus();
+                        $(".submit").unbind("click",
+                            function (event) {
+
+                            });
+                    }
+                });
+        }
+
+        var InterValObj; //timer变量，控制时间
+        var count = 120; //间隔函数，1秒执行
+        var curCount;//当前剩余秒数
+
+        function sendMessage() {
+            curCount = count;
+            //设置button效果，开始计时
+            $("#sendSms").attr("disabled", "true");
+            $("#sendSms").val( curCount + "(s)");
+            InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+            //向后台发送处理数据
+            $.post(
+                "/user/sendSms/" + $("#phone3").val(),
+                {},
+                function (data) {
+                });
+        }
+
+        //timer处理函数
+        function SetRemainTime() {
+            if (curCount == 0) {
+                window.clearInterval(InterValObj);//停止计时器
+                $("#sendSms").removeAttr("disabled");//启用按钮
+                $("#sendSms").val("重新发送");
+            }
+            else {
+                curCount--;
+                $("#sendSms").val( curCount + "(s)");
+            }
+        }
     </script>
 <body ng-view="ng-view">
 <div ng-controller="headerController" class="header stark-components navbar-fixed ng-scope">
@@ -255,25 +305,23 @@
         <div class="publish-box z-depth-4">
             <div class="row">
 
-                <div class="col s12 title">
+                <div class="col s12 title" onclick="showForget()">
                     <h1>找回密码</h1>
                 </div>
                 <form:form action="/user/findPassword" method="post" commandName="user" role="form">
                     <div class="input-field col s12">
-                        <input type="text" name="username" required="required" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" />
-                        <label>用户名</label>
-                    </div>
-                    <div class="input-field col s12">
-                        <input type="text" name="phone" required="required" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" />
+                        <input type="text" id="phone3" name="phone" required="required" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" onblur="checkPhone2();" />
                         <label>电话</label>
+                        <span id="span3"></span>
                     </div>
                     <div class="input-field col s12">
-                        <input type="text" name="password" required="required" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" />
+                        <input type="password" name="password" required="required" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" />
                         <label>新密码</label>
                     </div>
                     <div class="input-field col s12">
-                        <input type="text" name="repassword" required="required" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" />
-                        <label>确认新密码</label>
+                        <input type="text" name="vscode" required="required" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" />
+                        <label>验证码</label>
+                        <input id="sendSms" type="button" value="发送验证码" onclick="sendMessage()" class="waves-effect waves-light btn publish-btn red lighten-1" style="margin-left:0px;"/></p>
                     </div>
                     <div ng-show="checkTelIsShow" class="col s12">
                         <button class="waves-effect waves-light btn publish-btn red lighten-1">

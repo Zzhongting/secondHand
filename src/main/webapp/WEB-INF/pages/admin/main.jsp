@@ -53,7 +53,7 @@
 
 	<div class="manage-left">
 		<ul class="nav nav-pills nav-stacked">
-			<li class="active">
+			<li>
 				<a href="/admin/userList" >
 					<em>会员管理</em>
 				</a>

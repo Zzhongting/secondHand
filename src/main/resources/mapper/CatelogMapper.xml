@@ -80,6 +80,13 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
+  <update id="updateNameStatus" parameterType="com.zt.pojo.Catelog">
+    update catelog
+    set name = #{name,jdbcType=VARCHAR},
+    status = #{status,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
   <update id="updateCatelogNum" parameterType="Integer">
     update catelog
     set number = #{1,jdbcType=INTEGER}

@@ -82,6 +82,13 @@ public class GoodsServiceImpl implements GoodsService {
         if(goodId >= 0)
             goodsMapper.updateByGoodsId(end_time,goodId);
     }
+
+    /*管理员管理商品*/
+    public void updateStatus(Goods goods){
+        if(goods!= null)
+            goodsMapper.updateStatus(goods);
+    }
+
     /*根据用户的id，查询出该用户的发布的所有商品*/
     public List<Goods> getGoodsByUserId(Integer user_id) {
         if(user_id >= 0)

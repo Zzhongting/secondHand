@@ -26,6 +26,8 @@ public interface GoodsMapper {
 
     int updateByGoodsId(String end_time,int goodsId);
 
+    int updateStatus(Goods goods);
+
     List<Goods> getGoodsByUserId(Integer user_id);
 
     List<Goods> selectByCatelogOrderByDate(Integer catelogId, Integer limit);

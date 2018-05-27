@@ -37,6 +37,7 @@
 					<th data-column-id="id"  data-identifier="true" data-type="numeric">编号</th>
 					<th data-column-id="name">姓名</th>
 					<th data-column-id="password">密码</th>
+					<th data-column-id="commands" data-formatter="commands" data-sortable="false">Commands</th>
 				</tr>
 				</thead>
 			</table>
@@ -64,14 +65,16 @@
                 $.post('/admin/getAdminInfo',{id:$(this).data("row-id")},function(data){
                     $("#userId2").val(data.id);
                     $("#userName2").val(data.name);
-                    $("#password").val(data.password);
+                    $("#password1").val(data.password);
+                    $("#status1").val(data.status);
                 });
             }).end().find(".command-delete").on("click", function(e)
             {
                 alert("您确定要删除:‘" + $(this).data("row-id")+"’用户吗");
-                $.post("/admin/blackList",{id:$(this).data("row-id")},function(data){
-                    if(data==true){
+                $.post("/admin/deleteAdmin",{id:$(this).data("row-id")},function(data){
+                    if(data==1){
                         alert("删除成功");
+                        window.location.href = "${pageContext.request.contextPath}/admin/adminList";
 					}
                     else{
                         alert("删除失败");
@@ -97,19 +100,23 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">信息修改</h4>
 			</div>
-			<form:form action="/admin/updateInfoPower" commandName="admin" role="form" method="post">
+			<form:form action="/admin/updateAdmin" commandName="admin" role="form" method="post">
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="userId2">id</label>
-						<input type="text" name="userId" class="form-control" id="userId2" readonly="true">
+						<input type="text" name="id" class="form-control" id="userId2" readonly="true">
 					</div>
 					<div class="form-group">
 						<label for="userName2">name</label>
-						<input type="text" name="userName" class="form-control" id="userName2">
+						<input type="text" name="name" class="form-control" id="userName2">
 					</div>
 					<div class="form-group">
 						<label for="password1">password</label>
 						<input type="text" name="password" class="form-control" id="password1">
+					</div>
+					<div class="form-group">
+						<label for="status1">status</label>
+						<input type="text" name="status" class="form-control" id="status1">
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -132,15 +139,19 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="Id">id</label>
-						<input type="text" name="userName" class="form-control" id="Id">
+						<input type="text" name="id" class="form-control" id="Id">
 					</div>
 					<div class="form-group">
 						<label for="userName1">name</label>
-						<input type="text" name="userName" class="form-control" id="userName1">
+						<input type="text" name="name" class="form-control" id="userName1">
 					</div>
 					<div class="form-group">
 						<label for="password">password</label>
-						<input type="text" name="userMajor" class="form-control" id="password">
+						<input type="text" name="password" class="form-control" id="password">
+					</div>
+					<div class="form-group">
+						<label for="status">status</label>
+						<input type="text" name="status" class="form-control" id="status">
 					</div>
 				</div>
 				<div class="modal-footer">

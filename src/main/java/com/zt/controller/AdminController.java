@@ -91,16 +91,15 @@ public class AdminController {
     public ModelAndView loginValidate(HttpServletRequest request, HttpServletResponse response, Admini admini, ModelMap modelMap) {
         Admini admin = adminService.selectByPrimaryKey(admini.getId());
         String url=request.getHeader("Referer");
-        String urlNew = url.replace("logins","userList");
         if(admin != null) {
            if(admini.getName().equals(admin.getName())&&admini.getPassword().equals(admin.getPassword())){
                request.getSession().setAttribute("cur_admin",admin);
-               return new ModelAndView("redirect:"+urlNew);
+               return new ModelAndView("redirect:/admin/userList");
            } else{
-               modelMap.put("Msg","用户名或密码错误");
+               modelMap.put("Msg","密码错误");
            }
         }
-        return new ModelAndView("redirect:"+url);
+        return new ModelAndView("/admin/logins");
     }
     /*获取用户信息*/
     @RequestMapping(value="/getUserInfo",produces = {"application/json;charset=UTF-8"})
@@ -109,6 +108,23 @@ public class AdminController {
         User user = userService.selectByPrimaryKey(id);
         return user;
     }
+
+    /*获取目录信息*/
+    @RequestMapping(value="/getCatelogInfo",produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public Catelog getCatelogInfo(@RequestParam("id") Integer id){
+        Catelog catelog = catelogService.selectByPrimaryKey(id);
+        return catelog;
+    }
+
+    /*获取商品信息*/
+    @RequestMapping(value="/getGoodInfo",produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public Goods getGoodById(@RequestParam("id") Integer id){
+        Goods good = goodsService.getGoodsByPrimaryKey(id);
+        return good;
+    }
+
     /*获取管理员信息*/
     @RequestMapping(value="/getAdminInfo",produces = {"application/json;charset=UTF-8"})
     @ResponseBody
@@ -185,7 +201,7 @@ public class AdminController {
     //将用户信息导出到Excel
     @RequestMapping("/exportUser")
     public void export(HttpServletResponse response) throws Exception{
-        InputStream is=goodsService.getInputStream();
+        InputStream is=userService.getInputStream();
         response.setContentType("application/vnd.ms-excel");
         response.setHeader("contentDisposition", "attachment;filename=AllUsers.xls");
         ServletOutputStream output = response.getOutputStream();
@@ -203,20 +219,41 @@ public class AdminController {
     }
     /**
      * 修改用户活跃度
-     * @param request
      * @param user
      * @param modelMap
      * @return
      */
     @RequestMapping(value = "/updateInfoPower")
-    public ModelAndView updateInfoPower(HttpServletRequest request, User user, ModelMap modelMap) {
-        //从session中获取出当前用户
-        User cur_user = (User)request.getSession().getAttribute("cur_user");
-        cur_user.setPower(user.getPower());
-        userService.updateUser(cur_user);//执行修改操作
-        request.getSession().setAttribute("cur_user",cur_user);//修改session值
+    public ModelAndView updateInfoPower(User user, ModelMap modelMap) {
+        userService.updateUser1(user);//执行修改操作
         return new ModelAndView("redirect:/admin/userList");
     }
+
+    /**
+     * 修改商品信息状态
+     * @param good
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping(value = "/updateInfoStatus")
+    public ModelAndView updateInfoStatus(Goods good, ModelMap modelMap) {
+        goodsService.updateStatus(good);//执行修改操作
+        return new ModelAndView("redirect:/admin/goodsList");
+    }
+
+    /**
+     * 修改管理员
+     * @param admini
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping(value = "/updateAdmin")
+    public ModelAndView updateAdmin(Admini admini, ModelMap modelMap) {
+        adminService.updateAdminiByPrimaryKey(admini);
+        return new ModelAndView("redirect:/admin/adminList");
+    }
+
+
     /**
      * 添加管理员
      */
@@ -225,7 +262,7 @@ public class AdminController {
         if(admin != null){
             adminService.addAdmin(admin);
         }
-        return "redirect:/admin/userList";
+        return "redirect:/admin/adminList";
     }
 
 
@@ -233,27 +270,43 @@ public class AdminController {
      * 删除用户，并把其发布的未交易的商品删除
      */
     @RequestMapping(value = "/blackList")
-    public boolean blackList(@RequestParam("id")String id){
+    @ResponseBody
+    public String blackList(@RequestParam("id")String id,HttpServletResponse response) throws IOException {
         if(StringUtils.isNotBlank(id)) {
             List<Goods> allGoods = goodsService.getGoodsByUserId(Integer.parseInt(id));
             for (Goods goods : allGoods) {
                 goodsService.deleteGoodsByPrimaryKey(goods.getId());
             }
             userService.deleteUserByPrimaryKey(Integer.parseInt(id));
-            return true;
+            response.getWriter().println("1");
         }
-        return false;
+        return null;
+    }
+
+    /**
+     * 删除商品
+     */
+    @RequestMapping(value = "/deleGood")
+    @ResponseBody
+    public String deleGood(@RequestParam("id")String id,HttpServletResponse response) throws IOException {
+        if(StringUtils.isNotBlank(id)) {
+
+            goodsService.deleteGoodsByPrimaryKey(Integer.parseInt(id));
+            response.getWriter().println("1");
+        }
+        return null;
     }
 
     /**
      * 删除管理员
      */
     @RequestMapping(value = "/deleteAdmin")
-    public boolean deleteAdmin(@RequestParam("id")String id){
+    @ResponseBody
+    public String deleteAdmin(@RequestParam("id")String id,HttpServletResponse response) throws IOException {
         if(StringUtils.isNotBlank(id)) {
             adminService.deleteAdminByPrimaryKey(id);
-            return true;
+            response.getWriter().println("1");
         }
-        return false;
+        return null;
     }
 }

@@ -17,8 +17,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<h2>商品信息</h2>
-			<a class="btn btn-primary" href="/admin/exportUser">导出数据为excel</a>
-			<a class="btn btn-primary" href="#" id="add">添加管理员</a>
+			<a class="btn btn-primary" href="/admin/exportGoods">导出数据为excel</a>
 			<div class="btn-group">
 				<c:if test="${cur_admin.status == 1}">
 				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -64,17 +63,18 @@
             grid.find(".command-edit").on("click", function(e)
             {
                 $(".stumodal").modal();
-                $.post('/admin/getUserInfo',{id:$(this).data("row-id")},function(data){
-                    $("#userId2").val(data.id);
-                    $("#userName2").val(data.username);
-                    $("#userPower2").val(data.power);
+                $.post('/admin/getGoodInfo',{id:$(this).data("row-id")},function(data){
+                    $("#goodId2").val(data.id);
+                    $("#name2").val(data.name);
+                    $("#status").val(data.status);
                 });
             }).end().find(".command-delete").on("click", function(e)
             {
                 alert("您确定要删除:‘" + $(this).data("row-id")+"’用户吗");
-                $.post("/admin/blackList",{id:$(this).data("row-id")},function(data){
-                    if(data==true){
+                $.post("/admin/deleGood",{id:$(this).data("row-id")},function(data){
+                    if(data==1){
                         alert("删除成功");
+                        window.location.href = "${pageContext.request.contextPath}/admin/goodsList";
 					}
                     else{
                         alert("删除失败");
@@ -100,19 +100,19 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">信息修改</h4>
 			</div>
-			<form:form action="/admin/updateInfoPower" commandName="user" role="form" method="post">
+			<form:form action="/admin/updateInfoStatus" commandName="good" role="form" method="post">
 				<div class="modal-body">
 					<div class="form-group">
-						<label for="userId2">userId</label>
-						<input type="text" name="userId" class="form-control" id="userId2" readonly="true">
+						<label for="goodId2">goodId</label>
+						<input type="text" name="id" class="form-control" id="goodId2" readonly="true">
 					</div>
 					<div class="form-group">
-						<label for="userName2">userName</label>
-						<input type="text" name="userName" class="form-control" id="userName2" readonly="true">
+						<label for="name2">name</label>
+						<input type="text" name="name" class="form-control" id="name2" readonly="true">
 					</div>
 					<div class="form-group">
-						<label for="userPower2">userPower</label>
-						<input type="text" name="userPower" class="form-control" id="userPower2">
+						<label for="status">status</label>
+						<input type="text" name="status" class="form-control" id="status">
 					</div>
 				</div>
 				<div class="modal-footer">

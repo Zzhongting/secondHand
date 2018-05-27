@@ -34,6 +34,15 @@ public class CatelogServiceImpl implements CatelogService {
         }
         return 0;
     }
+
+    /*修改目录信息*/
+    public int updateNameStatus(Catelog record){
+        if(record != null){
+            return catelogMapper.updateNameStatus(record);
+        }
+        return 0;
+    }
+
     /*根据id修改该目录下的商品数量*/
     public int updateCatelogNum(Integer id, Integer number){
         if(id >= 1 && number >= 0){

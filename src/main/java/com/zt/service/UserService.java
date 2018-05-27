@@ -13,6 +13,10 @@ public interface UserService {
     public void deleteUserByPrimaryKey(Integer id);
     /*修改用户信息*/
     public void updateUser(User user);
+    /*
+    管理员修改用户信息
+     */
+    public void updateUser1(User user);
     /*更新用户商品数量*/
     public int updateGoodsNum(Integer id, Integer goodsNum);
     /*通过id获取用户信息*/

@@ -149,6 +149,11 @@
       address = #{address,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="updatePowerById" parameterType="com.zt.pojo.User">
+    update user
+    set power = #{power,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 
   <select id="getUserList" resultMap="BaseResultMap" parameterType="Integer">
     select <include refid="Base_Column_List" />

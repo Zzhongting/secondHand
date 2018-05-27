@@ -21,10 +21,8 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.zt.pojo.Admini">
-    insert into admini (id, name, password, 
-      status)
-    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER})
+    insert into admini (id, name, password,status)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},#{status,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.zt.pojo.Admini">
     insert into admini

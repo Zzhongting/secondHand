@@ -16,6 +16,8 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
+    int updatePowerById(User record);
+
     User getUserByPhone(String phone);
 
     List<User> getUserList();

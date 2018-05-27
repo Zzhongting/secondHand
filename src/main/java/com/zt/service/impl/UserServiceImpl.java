@@ -40,6 +40,12 @@ public class UserServiceImpl implements UserService {
         if(user != null)
             userMapper.updateByPrimaryKey(user);
     }
+
+    /*管理员修改用户信息*/
+    public void updateUser1(User user){
+        if(user != null)
+            userMapper.updatePowerById(user);
+    }
     /*更新用户商品数量*/
     public int updateGoodsNum(Integer id, Integer goodsNum){
         return userMapper.updateGoodsNum(id,goodsNum);

@@ -18,7 +18,6 @@
 		<div class="col-md-12">
 			<h2>用户信息</h2>
 			<a class="btn btn-primary" href="/admin/exportUser">导出数据为excel</a>
-			<a class="btn btn-primary" href="#" id="add">添加管理员</a>
 			<div class="btn-group">
 				<c:if test="${cur_admin.status == 1}">
 				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -71,10 +70,10 @@
                 });
             }).end().find(".command-delete").on("click", function(e)
             {
-                alert("您确定要删除:‘" + $(this).data("row-id")+"’用户吗");
                 $.post("/admin/blackList",{id:$(this).data("row-id")},function(data){
-                    if(data==true){
+                    if(data==1){
                         alert("删除成功");
+                        window.location.href = "${pageContext.request.contextPath}/admin/userList";
 					}
                     else{
                         alert("删除失败");
@@ -104,15 +103,15 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="userId2">userId</label>
-						<input type="text" name="userId" class="form-control" id="userId2" readonly="true">
+						<input type="text" name="id" class="form-control" id="userId2" readonly="true">
 					</div>
 					<div class="form-group">
 						<label for="userName2">userName</label>
-						<input type="text" name="userName" class="form-control" id="userName2" readonly="true">
+						<input type="text" name="username" class="form-control" id="userName2" readonly="true">
 					</div>
 					<div class="form-group">
 						<label for="userPower2">userPower</label>
-						<input type="text" name="userPower" class="form-control" id="userPower2">
+						<input type="text" name="power" class="form-control" id="userPower2">
 					</div>
 				</div>
 				<div class="modal-footer">

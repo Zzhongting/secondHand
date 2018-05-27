@@ -186,6 +186,12 @@
     set status = 0 and end_time = #{0,jdbcType=VARCHAR}
     where id = #{1,jdbcType=INTEGER}
   </update>
+
+  <update id="updateStatus" parameterType="com.zt.pojo.Goods">
+    update goods
+    set status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
   <select id="selectAllGoods" resultMap="ResultMapWithBLOBs">
     select <include refid="Base_Column_List" />,<include refid="Blob_Column_List"/>
     from goods
