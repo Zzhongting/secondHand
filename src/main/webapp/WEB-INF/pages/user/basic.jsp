@@ -18,6 +18,7 @@
 
 </head>
 <body>
+
 <div class="pre-2" id="big_img">
     <img src="http://findfun.oss-cn-shanghai.aliyuncs.com/images/head_loading.gif" class="jcrop-preview jcrop_preview_s">
 </div>
@@ -42,6 +43,11 @@
             <div class="basic">
                 <form:form action="/user/updateInfo" method="post" commandName="user" role="form" onsubmit="return checkForm();">
                     <h1>完善与修改个人信息</h1><hr />
+                    <input type="hidden" id="id" name="id" value="${cur_user.id}"/>
+                    <input type="hidden" id="password" name="password" value="${cur_user.password}"/>
+                    <input type="hidden" id="goodsNum" name="goodsNum" value="${cur_user.goodsNum}"/>
+                    <input type="hidden" id="power" name="power" value="${cur_user.power}"/>
+                    <input type="hidden" id="lastLogin" name="lastLogin" value="${cur_user.lastLogin}"/>
                     <div class="changeinfo">
                         <span>昵称：</span>
                         <input class="in_info" type="text" id="username" name="username" placeholder="请输入昵称" value="${cur_user.username}"/>

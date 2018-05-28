@@ -17,6 +17,16 @@
 
 </head>
 <body>
+<c:if test="${polishSucess != null}">
+    <script>
+        alert("擦亮成功");
+    </script>
+</c:if>
+<c:if test="${polishFailed != null}">
+    <script>
+        alert("擦亮失败");
+    </script>
+</c:if>
 <div class="pre-2" id="big_img">
     <img src="http://findfun.oss-cn-shanghai.aliyuncs.com/images/head_loading.gif" class="jcrop-preview jcrop_preview_s">
 </div>

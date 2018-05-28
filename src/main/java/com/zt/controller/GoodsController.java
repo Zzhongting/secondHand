@@ -78,6 +78,7 @@ public class GoodsController {
 
     @RequestMapping(value = "/search")
     public ModelAndView searchGoods(@RequestParam(value = "str",required = false) String str)throws Exception {
+        str=new String(str.getBytes("ISO8859-1"),"UTF-8");
         List<Goods> goodsList = goodsService.searchGoods(str,str);
         List<GoodsExtend> goodsExtendList = new ArrayList<GoodsExtend>();
         for(int i = 0;i<goodsList.size();i++) {
@@ -192,7 +193,7 @@ public class GoodsController {
      * @throws Exception
      */
     @RequestMapping(value = "/updatePolishTime/{id}")
-    public String updatePolishTime(HttpServletRequest request,@PathVariable("id") Integer id) throws Exception {
+    public String updatePolishTime(ModelMap map,HttpServletRequest request,@PathVariable("id") Integer id) throws Exception {
         String url=request.getHeader("Referer");
         User cur_user = (User)request.getSession().getAttribute("cur_user");
         Goods goods = goodsService.getGoodsByPrimaryKey(id);
@@ -203,9 +204,11 @@ public class GoodsController {
             if(today.compareTo(polishTime)>=0){
                 goods.setPolishTime(today);
                 goodsService.updateGoodsByPrimaryKeyWithBLOBs(goods);
-                return "redirect:"+url;
+                map.put("polishSucess","yes");
+                return "redirect:/user/allGoods";
             } else {
-                return "";
+                map.put("polishFailed","no");
+                return "redirect:/user/allGoods";
             }
         }
         return null;

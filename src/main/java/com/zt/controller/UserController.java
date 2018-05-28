@@ -78,7 +78,7 @@ public class UserController {
                 String pwd = MD5.md5(user.getPassword());
                 if (pwd.equals(cur_user.getPassword())) {
                     request.getSession().setAttribute("cur_user", cur_user);
-                    return "redirect:" + url;
+                    return "redirect:/goods/homeGoods";
                 } else {
                     //密码错误
                    modelMap.put("noPassword","false");
@@ -186,9 +186,8 @@ public class UserController {
     @RequestMapping(value = "/updateInfo")
     public ModelAndView updateInfo(HttpServletRequest request, User user, ModelMap modelMap) {
         //从session中获取出当前用户
-        User cur_user = (User)request.getSession().getAttribute("cur_user");
-        userService.updateUser(cur_user);//执行修改操作
-        request.getSession().setAttribute("cur_user",cur_user);//修改session值
+        userService.updateUser(user);//执行修改操作
+        request.getSession().setAttribute("cur_user",user);//修改session值
         return new ModelAndView("redirect:/user/basic");
     }
 
@@ -232,7 +231,7 @@ public class UserController {
      * @return  返回的model为 goodsAndImage对象,该对象中包含goods 和 images，参考相应的类
      */
     @RequestMapping(value = "/allGoods")
-    public ModelAndView goods(HttpServletRequest request) {
+    public ModelAndView goods(ModelMap map,HttpServletRequest request) {
         User cur_user = (User)request.getSession().getAttribute("cur_user");
         Integer userId = cur_user.getId();
         List<Goods> goodsList = goodsService.getGoodsByUserId(userId);
@@ -245,6 +244,12 @@ public class UserController {
             goodsExtend.setGoods(goods);
             goodsExtend.setImages(images);
             goodsAndImage.add(i, goodsExtend);
+        }
+        if(request.getParameter("polishSucess")!=null){
+            map.put("polishSucess","yes");
+        }
+        if(request.getParameter("polishFailed")!=null){
+            map.put("polishFailed","no");
         }
         ModelAndView mv = new ModelAndView();
         mv.addObject("goodsAndImage",goodsAndImage);

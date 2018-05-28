@@ -6,6 +6,10 @@
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+<!--
+描述：顶部
+-->
+<c:import url="../pagefiles/head.jsp"></c:import>
 <script>
     function order(){
         if($("#confirm-show").css("display")=='none'){
@@ -19,19 +23,16 @@
 </script>
 <style>
       #item-option{
-          position: relative;
-          height:30px;
-          font-size: 20px;
-          margin:20px 60px;
+            position: relative;
+            height:30px;
+            font-size: 20px;
+            margin:20px 60px;
 
-      }
+        }
 </style>
 <link rel="stylesheet" href="<%=basePath%>css/detail.css" />
 
-<!--
-描述：顶部
--->
-<c:import url="../pagefiles/head.jsp"></c:import>
+
 
 <div ng-controller="detailBoxController" class="detail-box stark-components z-depth-1 row ng-scope">
     <div class="col s12 path">
@@ -92,19 +93,20 @@
                     <div class="value">${seller.qq}</div>
                 </div>
             </div>
-
-            <div class="item-public-info">
-                <div id="item-option">
-                    <c:choose>
-                        <c:when test="${goodsExtend.goods.status == 1 }">
-                            <a onclick="order()" class="item-price">立即购买</a>
-                        </c:when>
-                        <c:otherwise>
-                            <span>该商品已交易</span>
-                        </c:otherwise>
-                    </c:choose>
+            <c:if test="${goodsExtend.goods.userId != cur_user.id}">
+                <div class="item-public-info">
+                    <div id="item-option">
+                        <c:choose>
+                            <c:when test="${goodsExtend.goods.status == 1 }">
+                                <a onclick="order()" class="item-price">立即购买</a>
+                            </c:when>
+                            <c:otherwise>
+                                <span>该商品已交易</span>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
                 </div>
-            </div>
+            </c:if>
 
         </c:when>
             <c:otherwise>
@@ -132,7 +134,7 @@
 描述：确认订单
 -->
 <div id="confirm-show" style="display: none;" class="login stark-components">
-    <div class="publish-box z-depth-4" style="width:980px;left:25%;top:8%;height:650px;">
+    <div class="publish-box z-depth-4" style="width: 680px;left: 35%;top: 20%;height: 350px;">
         <div class="row">
             <a onclick="order()">
                 <img style="width:30px;height:30px;float:right" src="<%=basePath%>/img/close.png"/>
@@ -141,22 +143,19 @@
         <input type="hidden" name="cost" value="${goodsExtend.goods.price }">
         <input type="hidden" name="goodsId" value="${goodsExtend.goods.id }">
         <input type="hidden" name="goodsName" value="${goodsExtend.goods.name }">
-        <div style="height:30px;font-size: 20px;margin:20px 0px 10px 200px;">
+        <div style="float:left;margin:20px 0px 0px 10px;">
+            <img style="width:300px;height: 250px;" src="<%=basePath%>upload/${goodsExtend.images[0].imgUrl}" />
+        </div>
+        <div style="float:right;height:30px;font-size: 18px;margin:40px 40px 0px 0px;">
             <p style="margin-bottom: 15px">收货人：${cur_user.username}</p>
             <p style="margin-bottom: 15px">电&nbsp;&nbsp;&nbsp;话：${cur_user.phone}</p>
             <p style="margin-bottom: 15px">地&nbsp;&nbsp;&nbsp;址：${cur_user.address}</p>
-        </div>
-        <div style="float:left;margin:130px 0px 0px 100px;">
-                <img style="width:300px;height: 250px;padding-left:5%" src="<%=basePath%>upload/${goodsExtend.images[0].imgUrl}" />
-        </div>
-        <div style="float:right;width:400px;height:350px;margin-top: 100px ;">
-            <p style="font-size:22px;margin-top:15%;margin-left:20px">数量：1</p>
-            <p style="font-size:22px;margin-top:15%;margin-left:20px">价格：￥${goodsExtend.goods.price }</p>
-            <button type="submit" style="top:40%;margin-left:0px;" class="waves-effect waves-light btn login-btn red lighten-1">
+            <p style="margin-bottom: 15px">数量：1</p>
+            <p style="margin-bottom: 15px">价格：￥${goodsExtend.goods.price }</p>
+            <button type="submit" style="top:120%;margin-left:0px;" class="waves-effect waves-light btn login-btn red lighten-1">
                 <i class="iconfont left"></i>
                 <em>提交订单</em>
             </button>
-
         </div>
 
     </form:form>
